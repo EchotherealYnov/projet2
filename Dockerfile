@@ -1,24 +1,23 @@
 # Utilisation d'une image de base légère contenant Go
-FROM golang:1.17-alpine as builder
+FROM golang:1.22.2-alpine3.19
 
 # Définition du répertoire de travail dans le conteneur
 WORKDIR /app
+
+# Copie go mod et fichiers sum
+COPY go.mod go.sum ./
+
+# Compilation du projet
+RUN go mod download
 
 # Copie des fichiers nécessaires (le code source)
 COPY . .
 
-# Compilation du projet
-RUN go mod download
-RUN go build -o main .
+# Construit l'app GO
+RUN go build -o jk-golang-webapp-books .
 
-# Utilisation d'une image Alpine plus légère pour exécuter l'application
-FROM alpine:latest
+# EXPOSE 8082
+EXPOSE 8082
 
-# Définition du répertoire de travail dans le conteneur
-WORKDIR /app
-
-# Copie de l'exécutable depuis le builder vers le conteneur final
-COPY --from=builder /app/main .
-
-# Commande à exécuter lorsque le conteneur démarre
-CMD ["./main"]
+# Commande à exécuter lorsque pour l'executable
+CMD ["./jk-golang-webapp-books"]
