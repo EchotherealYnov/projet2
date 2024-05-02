@@ -24,7 +24,7 @@ pipeline {
                 script {
             // Exécution du conteneur Docker
             docker.image("${params.DOCKERHUB_ID}/${params.IMAGE_NAME}:${params.IMAGE_TAG}")
-                .run("-d -p 80:5000 --name ${params.IMAGE_NAME}_container -e PORT=5000")
+                .run("-d -p 8082:5000 --name ${params.IMAGE_NAME}_container -e PORT=5000")
             sleep(5)
             }
             }
