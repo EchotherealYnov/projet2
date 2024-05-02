@@ -16,8 +16,8 @@ COPY . .
 # Construit l'app GO
 RUN go build -o jk-golang-webapp-books .
 
-# EXPOSE 8082
-EXPOSE 8082
+# EXPOSE 80
+EXPOSE 80
 
 # Commande à exécuter lorsque pour l'executable
 CMD ["./jk-golang-webapp-books"]
